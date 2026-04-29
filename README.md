@@ -1,134 +1,116 @@
-# Frontend Developer Coding Test  
+# Task Manager (Pro)
 
-Welcome to the coding test for the **Full Stack Developer** role. This repository contains two challenges:  
+A professional, high-performance task management application built with a focus on clean architecture, accessibility, and exceptional user experience.
 
-1. **React Task Manager** (for web development).  
-2. **React Native User List** (for mobile development).  
+![Lighthouse Scores](./src/assets/lighthouse-scores.png)
 
-You are required to complete both tasks within the provided timeline. These challenges will assess your proficiency with React, React Native, Redux, and advanced development practices.  
+## 🚀 Project Overview
 
----
+This application is a robust task management tool designed for scalability and speed. It leverages **React 19**, **TypeScript** (Strict Mode), and **Redux Toolkit** to provide a seamless, state-driven interface. The project adheres to a strict separation of concerns, ensuring that UI components remain pure and reusable while complex logic is handled by custom hooks and centralized state.
 
-# ⏳ Time Limit
+## 🛠️ Tech Stack
 
-You have **2 days** to complete this test.
+- **Core**: React 19 + Vite + TypeScript (Strict)
+- **State Management**: Redux Toolkit (Single source of truth)
+- **Routing & URL State**: [nuqs](https://nuqs.47ng.com/) (URL-based filtering for shareable state)
+- **Drag & Drop**: `@dnd-kit` (Optimized for performance)
+- **Forms**: React Hook Form + Zod (Strict schema validation)
+- **Styling**: Tailwind CSS v4 (Modern design tokens, CSS variables)
+- **Performance**: Debounced URL state updates, Memoized selectors
+- **UX**: `sonner` (Toast notifications), Comprehensive skeleton loading (Header + List)
+- **Testing**: Vitest + React Testing Library
+- **Package Manager**: [Bun](https://bun.sh/)
 
-### Submission Steps
+## ✨ Core Features
 
-1. Fork this repository
-2. Complete the implementation
-3. Push your solution to your fork
-4. Email your GitHub repository link to:
+- **Full CRUD Operations**: Create, edit, toggle, and delete tasks with instant feedback.
+- **Priority Management**: Categorize tasks by **High**, **Medium**, and **Low** priorities.
+- **Smart Filtering**: Filter tasks by completion status or priority. Filters are persisted in the URL using `nuqs`.
+- **Live Search**: High-performance debounced search with URL synchronization and history protection.
+- **Drag & Drop Reordering**: Reorder your entire task set with smooth, accessible animations.
+- **Optimistic UI**: All operations update the UI immediately before the background process completes for a lag-free feel.
+- **Persistence**: Automatic state preservation via `localStorage`.
+- **Responsive Design**: Fully optimized for mobile, tablet, and desktop screens.
+- **Accessibility (A11y)**: 100/100 score, featuring proper ARIA labels, semantic HTML, and logical heading hierarchies.
+- **Dark/Light Mode**: Elegant theme switching with system preference detection.
 
-careers@fekracorp.com
+## 🏛️ Architecture Highlights
 
----
-## Repository Structure  
+- **Feature-Based Structure**: Organized by domain (`features/tasks`) to keep the codebase modular and navigable.
+- **UI/Logic Decoupling**: UI components are "dumb" and focused only on rendering. All business logic is encapsulated in Redux slices or custom hooks.
+- **Single Source of Truth**: Redux handles all task data, while `nuqs` synchronizes UI state with the browser URL.
+- **Generic Custom Select**: Instead of native selects, we implemented a **Generic Custom Select** with logic extracted into a reusable `useCustomSelect` hook to provide:
+  - Better cross-browser styling consistency.
+  - Enhanced accessibility (ARIA-expanded, listbox roles).
+  - Seamless integration with the design system tokens.
+- **Declarative Modal System**: Native `<dialog>` implementation with a custom `useModal` hook and theme-aware backdrop blur.
+- **Generic Confirmation Dialog**: A reusable modal system for destructive actions, ensuring a consistent user warning flow.
 
-```plaintext
-react-redux-task-manager/  
-|-- README.md  
-|-- react-task-manager/  
-|   |-- src/  
-|   |   |-- components/  
-|   |   |-- redux/  
-|   |   |-- App.js  
-|   |   |-- index.js  
-|   |-- package.json  
-|-- react-native-user-list/  
-|   |-- src/  
-|   |   |-- components/  
-|   |   |-- redux/  
-|   |   |-- App.js  
-|   |-- package.json  
-|-- .gitignore
+## 🎨 Styling System
+
+The project uses a unified styling system via **Tailwind CSS v4**:
+
+- **Design Tokens**: All colors and typography are defined as CSS variables in `src/styles/index.css`.
+- **Component Classes**: Reusable classes like `.btn`, `.card`, and `.input` ensure UI consistency across the app.
+- **Zero Magic Numbers**: No hardcoded color codes or spacing values in the JSX.
+
+## 🧪 Testing
+
+Testing is handled by **Vitest** and **React Testing Library**, with a focus on core logic:
+
+- **Reducers**: Ensuring state transitions are predictable and correct.
+- **Selectors**: Validating filtering and search logic.
+- **Hooks**: Testing complex side effects and state synchronization.
+
+Run tests:
+
+```bash
+bun run test
 ```
 
----
+## 🏁 Getting Started
 
-## React Task Manager  
+### Prerequisites
 
-### Objective  
-Build a task management application using React hooks and Redux.  
+- [Bun](https://bun.sh/) installed on your machine.
 
-### Requirements  
-1. **State Management (Redux):**  
-   - Use Redux for global state to manage a list of tasks (id, title, priority, completed).
+### Installation
 
-2. **Features:**  
-   - Add, edit, delete, and toggle task completion.  
-   - Filter tasks by:  
-     - Priority (`High`, `Medium`, `Low`).  
-   - Persist tasks in `localStorage`.  
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   ```
+2. Install dependencies:
+   ```bash
+   bun install
+   ```
 
----
+### Development
 
-### Evaluation Criteria  
-- Correct use of React hooks and Redux.  
-- Code structure and readability.  
-- Full functionality with filters, persistence, and editing.  
+Start the development server:
 
----
+```bash
+bun run dev
+```
 
-## React Native User List  
+### Production Build
 
-### Objective  
-Build a user list application using EXPO, optimized for performance and scalability.  
+Build and preview the optimized application:
 
-### Requirements  
-1. **State Management (Redux):**  
-   - Manage user data fetched from the API.  
+```bash
+bun run build
+bun run preview
+```
 
-2. **API Integration:**  
-   - Use `https://jsonplaceholder.typicode.com/users` to fetch user data.  
-   - Store fetched users in Redux.
-   - Implement offline support: Cache the fetched data using a library like AsyncStorage.
+## 📈 Performance & Lighthouse
 
-3. **FlatList Optimization:**  
-   - Use FlatList to render a list of users.
+The application is optimized for the **Critical Rendering Path**:
 
-4. **Features:**  
-   - Display user data (`name`, `email`, `address`) in a reusable `UserCard`.  
-   - Search bar to filter users by name.  
-   - Pagination: Add a "Load More" button to fetch additional users.  
-
-5. **Data Transformation:**  
-   - Combine API `address` fields into a single string (`street, city, zipcode`).  
----
-
-### Evaluation Criteria  
-- Efficient use of `FlatList` and performance optimization.  
-- Proper Redux and API integration.  
-- Clean, reusable code for components like `UserCard`.  
-- Correct use of local storage 
+- **Perfect 100s**: Achieved 100 scores across Performance, Accessibility, Best Practices, and SEO.
+- **Zero Layout Shift**: Cumulative Layout Shift (CLS) is 0 thanks to stable skeletons and pre-allocated space.
+- **History Protection**: Debounced URL updates ensure browser navigation (Back/Forward) remains clean and intuitive.
+- **Perceived Speed**: Asynchronous initialization with skeletons provides immediate visual feedback, building user trust during data retrieval.
 
 ---
 
-## Submission Instructions  
-
-1. **Clone This Repository:**  
-   Fork this repository and set up your environment.  
-
-2. **Complete Both Challenges:**  
-   Implement the tasks in the respective directories:  
-   - `react-task-manager/`  
-   - `react-native-user-list/`  
-
-3. **Test Your Work:**  
-   Ensure your projects run without errors and meet the requirements.  
-
-4. **Submit Your Solution:**  
-   Push your completed code to your public GitHub repository and share the link with us.  
-
----
-# 📤 Submission Reminder
-
-You have 2 days.
-
-Fork → Implement → Push → Send GitHub link to:
-
-careers@fekracorp.com
-
-Good luck.
-
-
+_Built with ❤️ for Fekra Assessment_
