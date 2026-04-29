@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://task-manager-fekra.vercel.app/sitemap.xml
